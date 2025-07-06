@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Swiss Transfers - Gestion des Transferts</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl md:text-3xl font-bold">
+                    <i class="fas fa-car mr-2"></i>
+                    Swiss Transfers
+                </h1>
+                <div class="text-sm md:text-base">
+                    <i class="fas fa-mobile-alt mr-1"></i>
+                    Version Mobile
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around py-3">
+                <button onclick="showSection('courses')" class="nav-btn flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-list text-lg mb-1"></i>
+                    <span class="text-xs">Courses</span>
+                </button>
+                <button onclick="showSection('create')" class="nav-btn flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-plus-circle text-lg mb-1"></i>
+                    <span class="text-xs">Créer</span>
+                </button>
+                <button onclick="showSection('drivers')" class="nav-btn flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-users text-lg mb-1"></i>
+                    <span class="text-xs">Chauffeurs</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Section Courses -->
+        <div id="courses-section" class="section">
+            <div class="bg-white rounded-lg card-shadow p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-list mr-2 text-blue-600"></i>
+                    Liste des Courses
+                </h2>
+                
+                <!-- Filtres -->
+                <div class="mb-4">
+                    <select id="status-filter" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Tous les statuts</option>
+                        <option value="En attente">En attente</option>
+                        <option value="Acceptée">Acceptée</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Terminée">Terminée</option>
+                    </select>
+                </div>
+
+                <!-- Liste des courses -->
+                <div id="courses-list" class="space-y-4">
+                    <!-- Les courses seront chargées ici -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Créer Course -->
+        <div id="create-section" class="section hidden">
+            <div class="bg-white rounded-lg card-shadow p-6">
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-plus-circle mr-2 text-green-600"></i>
+                    Créer une Nouvelle Course
+                </h2>
+
+                <form id="course-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            Lieu de prise en charge
+                        </label>
+                        <input type="text" id="lieu_prise_charge" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Ex: Aéroport de Genève">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-flag-checkered mr-1"></i>
+                            Destination
+                        </label>
+                        <input type="text" id="destination" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Ex: Centre-ville Genève">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-clock mr-1"></i>
+                            Heure
+                        </label>
+                        <input type="time" id="heure" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-user mr-1"></i>
+                            Nom du client
+                        </label>
+                        <input type="text" id="nom_client" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Ex: M. Dupont">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-euro-sign mr-1"></i>
+                            Prix (€)
+                        </label>
+                        <input type="number" id="prix" required step="0.01" min="0"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Ex: 45.00">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-car mr-1"></i>
+                            Type de véhicule
+                        </label>
+                        <select id="type_vehicule" required 
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Sélectionner un véhicule</option>
+                            <option value="BERLINE">Berline</option>
+                            <option value="TESLA">Tesla</option>
+                            <option value="V-CLASS">V-Class</option>
+                            <option value="VITO">Vito</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="anglais_requis" 
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="anglais_requis" class="ml-2 block text-sm text-gray-700">
+                            <i class="fas fa-language mr-1"></i>
+                            Anglais requis
+                        </label>
+                    </div>
+
+                    <button type="submit" 
+                            class="w-full btn-primary text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all duration-200">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Créer la Course
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Section Chauffeurs -->
+        <div id="drivers-section" class="section hidden">
+            <div class="bg-white rounded-lg card-shadow p-6">
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-users mr-2 text-purple-600"></i>
+                    Gestion des Chauffeurs
+                </h2>
+
+                <!-- Formulaire ajout chauffeur -->
+                <form id="driver-form" class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-lg font-medium mb-4">Ajouter un chauffeur</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="driver_nom" required 
+                               class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Nom du chauffeur">
+                        <input type="tel" id="driver_telephone" required 
+                               class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Téléphone">
+                        <input type="text" id="driver_vehicule" 
+                               class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Véhicule (optionnel)">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="driver_anglais" 
+                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="driver_anglais" class="ml-2 text-sm text-gray-700">Parle anglais</label>
+                        </div>
+                    </div>
+                    <button type="submit" 
+                            class="mt-4 btn-primary text-white py-2 px-4 rounded-lg font-medium">
+                        <i class="fas fa-plus mr-2"></i>
+                        Ajouter
+                    </button>
+                </form>
+
+                <!-- Liste des chauffeurs -->
+                <div id="drivers-list" class="space-y-3">
+                    <!-- Les chauffeurs seront chargés ici -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+            <span id="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="mt-2 text-gray-600">Chargement...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
